@@ -34,9 +34,10 @@ How to Test (Recommended)
    - POST /transactions/status (batch lookup)
 
 Example transaction IDs to test:
-- tx_1001, tx_1002, tx_1003
-- tx_2001, tx_2002
-- tx_3001, tx_3004
+
+[\"f8f49a30-b169-42ab-a05d-2fc9949a885b\",
+\"85001fc5-1380-4fe5-8917-9e96edbb45ef\",
+\"87e97869-120f-41b1-8154-adb3b5f96a6e\"]
 
 Expected Behavior
 -----------------

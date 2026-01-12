@@ -5,7 +5,12 @@ def test_store_ingest_and_lookup(tmp_path):
     db_path = tmp_path / "test.duckdb"
 
     con = duckdb.connect()
-    con.execute("CREATE TABLE t(transaction_id VARCHAR, status VARCHAR) AS VALUES ('a1','success'),('a2','failed')")
+    con.execute("""
+        CREATE TABLE t AS
+        SELECT 'a1'::VARCHAR AS transaction_id, 'success'::VARCHAR AS status
+        UNION ALL
+        SELECT 'a2'::VARCHAR AS transaction_id, 'failed'::VARCHAR AS status
+    """)
     parquet_path = tmp_path / "t.parquet"
     con.execute(f"COPY t TO '{parquet_path.as_posix()}' (FORMAT PARQUET)")
     con.close()

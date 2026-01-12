@@ -1,0 +1,10 @@
+stuck_threshold_minutes: 30
+error_implies_failed: true
+require_updated_at_for_stuck: true
+
+hard_fail_error_codes:
+  - E401
+  - E403
+  - INSUFFICIENT_FUNDS
+  - DO_NOT_HONOR
+  - INVALID_ACCOUNT

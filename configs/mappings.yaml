@@ -1,0 +1,55 @@
+canonical_fields:
+  transaction_id:
+    - transaction_id
+    - tx_id
+    - txn_id
+    - id
+    - transactionid
+    - reference_id
+    - ref_id
+  status_raw:
+    - status
+    - state
+    - result
+    - txn_status
+    - transaction_status
+    - payment_status
+  created_at:
+    - created_at
+    - created
+    - created_on
+    - createdOn
+    - init_time
+    - initiated_at
+  updated_at:
+    - updated_at
+    - updated
+    - updated_on
+    - updatedOn
+    - modified
+    - modified_at
+    - last_updated
+    - last_update_time
+  error_code:
+    - error_code
+    - err_code
+    - reason_code
+    - failure_code
+  error_message:
+    - error_message
+    - err_message
+    - failure_reason
+    - reason
+    - message
+  amount:
+    - amount
+    - total
+    - value
+  currency:
+    - currency
+    - curr
+    - cc
+  provider:
+    - provider
+    - gateway
+    - processor

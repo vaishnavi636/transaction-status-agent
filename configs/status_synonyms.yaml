@@ -1,0 +1,35 @@
+success:
+  - success
+  - succeeded
+  - completed
+  - settled
+  - paid
+  - ok
+  - approved
+  - captured
+
+failed:
+  - failed
+  - declined
+  - rejected
+  - error
+  - reversed
+  - cancelled
+  - canceled
+  - chargeback
+
+pending:
+  - pending
+  - queued
+  - created
+  - awaiting
+  - waiting
+
+processing:
+  - processing
+  - in_progress
+  - inprogress
+  - running
+  - authorizing
+  - capturing
+  - settling

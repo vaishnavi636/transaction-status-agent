@@ -1,0 +1,41 @@
+1) Fresh install test
+rmdir /s /q .venv
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python -c "import fastapi, uvicorn, duckdb, pandas; print('deps_ok')"
+
+2) Unit tests
+pytest -q
+
+
+
+3) Full pipeline smoke test
+
+Generate data
+
+python scripts\generate_synthetic.py
+python scripts\build_index.py
+
+
+Run API
+
+uvicorn app.main:app --reload
+
+
+Upload file
+
+curl -X POST http://127.0.0.1:8000/ingest/upload ^
+  -F "file=@sample_data\transactions.csv"
+
+
+Batch status
+
+python -c "import duckdb; con=duckdb.connect('data/txn.duckdb'); print(con.execute('select transaction_id from txns limit 3').fetchall())"
+
+
+Use those IDs:
+
+curl -X POST http://127.0.0.1:8000/transactions/status ^
+  -H "Content-Type: application/json" ^
+  -d "{\"transaction_ids\":[\"ID1\",\"ID2\",\"ID3\"]}"

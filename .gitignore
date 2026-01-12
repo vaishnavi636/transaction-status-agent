@@ -3,10 +3,6 @@ __pycache__/
 .venv/
 .env
 data/
-sample_data/*.csv
-sample_data/*.json
-sample_data/*.ndjson
-sample_data/*.parquet
 .pytest_cache/
 data/uploads/
 sample_data/transactions.csv

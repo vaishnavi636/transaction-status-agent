@@ -1,0 +1,59 @@
+Transaction Status Agent – Sample File Usage Guide
+=================================================
+
+This folder contains small demo datasets to test the Transaction Status Agent.
+
+Supported Formats
+-----------------
+1. CSV
+2. JSON (array format)
+3. NDJSON (newline-delimited JSON)
+4. Parquet (optional, generated via scripts)
+
+Files Included
+--------------
+- sample_transactions.csv
+- sample_transactions.json
+- sample_transactions.ndjson
+
+How to Test (Recommended)
+------------------------
+1. Start the API:
+   uvicorn app.main:app --reload
+
+2. Open Swagger UI:
+   http://127.0.0.1:8000/docs
+
+3. Use the endpoint:
+   POST /ingest/upload
+
+4. Upload any one of the sample files above.
+
+5. After ingest, test:
+   - GET /transaction/{transaction_id}
+   - POST /transactions/status (batch lookup)
+
+Example transaction IDs to test:
+- tx_1001, tx_1002, tx_1003
+- tx_2001, tx_2002
+- tx_3001, tx_3004
+
+Expected Behavior
+-----------------
+- The agent normalizes raw status values (success, failed, pending, processing).
+- Long-running non-final transactions may be marked as STUCK.
+- Missing IDs are reported explicitly in batch responses.
+- Each response includes:
+  - status
+  - confidence
+  - reason
+  - evidence
+  - rules_fired
+
+Notes
+-----
+- These files are intentionally small for demo purposes.
+- Large-scale testing is done using the synthetic data generator.
+- Schema flexibility is handled via configs/mappings.yaml.
+
+End of guide.

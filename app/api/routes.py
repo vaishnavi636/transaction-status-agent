@@ -6,6 +6,9 @@ from ..core.config import settings
 from ..core.store import TransactionStore
 from ..core.classifier import Agent
 from ..core.errors import NotFoundError, DataSourceError
+from fastapi import UploadFile, File
+import shutil
+from pathlib import Path
 
 router = APIRouter()
 
@@ -103,3 +106,26 @@ def batch_status(req: BatchRequest):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/ingest/upload")
+def ingest_upload(file: UploadFile = File(...)):
+    """
+    Upload a data file (CSV/JSON/NDJSON/Parquet), save it, then ingest.
+    """
+    try:
+        settings.ensure_dirs()
+        upload_dir = Path("data") / "uploads"
+        upload_dir.mkdir(parents=True, exist_ok=True)
+
+        dest = upload_dir / file.filename
+        with dest.open("wb") as f:
+            shutil.copyfileobj(file.file, f)
+
+        store.ingest(str(dest))
+        return {"ok": True, "saved_as": str(dest), "stats": store.stats()}
+
+    except DataSourceError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Upload ingest failed: {e}")

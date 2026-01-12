@@ -8,3 +8,7 @@ sample_data/*.json
 sample_data/*.ndjson
 sample_data/*.parquet
 .pytest_cache/
+data/uploads/
+sample_data/transactions.csv
+sample_data/transactions.parquet
+data/txn.duckdb
